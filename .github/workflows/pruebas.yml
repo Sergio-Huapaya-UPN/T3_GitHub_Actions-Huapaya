@@ -1,0 +1,33 @@
+# nombre del workflow
+name: Pruebas automatizadas con pytest
+
+# cuando se ejecuta
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  pruebas:
+    # se ejecuta en linux
+    runs-on: ubuntu-latest
+
+    steps:
+      # descarga el codigo
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      # instala python
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # instala pytest
+      - name: Instalar dependencias
+        run: pip install pytest
+
+      # corre las pruebas
+      - name: Ejecutar pruebas
+        run: pytest -v Test_Ejemplo_T3_Caso.py
